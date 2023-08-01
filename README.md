@@ -1,4 +1,4 @@
-# PMT Marker 
+# PMT Marker
 
 This extension will allow users to mark which past papers they have completed.
 
@@ -9,6 +9,7 @@ This extension will allow users to mark which past papers they have completed.
 - Filter marked files in list view
 
 ## Roadmap
+
 - [x] Being able to find files hrefs in html DOM
 - [x] Add Checkbox near file url
 - [x] Store marked files in local storage

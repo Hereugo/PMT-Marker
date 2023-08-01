@@ -1,69 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Physics & Maths Tutor Marker</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./popup.css">
-</head>
-<body>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
     <header>
-        <div class="PMT-dropdown">
-            <span class="PMT-dropdown-title PMT-inline" data-filter="all">
-                <span class="PMT-status-icon"></span>
-                <span class="PMT-text"></span>
+      <div class="PMT-dropdown">
+        <span class="PMT-dropdown-title PMT-inline" data-filter="all">
+          <span class="PMT-status-icon"></span>
+          <span class="PMT-text"></span>
+        </span>
+        <div class="PMT-dropbtn" tabindex="0">
+          <span class="PMT-text">Change Filter</span>
+          <i class="PMT-chevron-icon">⌵</i>
+          <div class="PMT-dropdown-content">
+            <span class="PMT-inline" data-filter="all">
+              <span class="PMT-status-icon"></span>
+              <span class="PMT-text"></span>
             </span>
-            <div class="PMT-dropbtn" tabindex="0">
-                <span class="PMT-text">Change Filter</span>
-                <i class="PMT-chevron-icon">⌵</i>
-                <div class="PMT-dropdown-content">
-                    <span
-                        class="PMT-inline"
-                        data-filter="all"
-                    >
-                        <span class="PMT-status-icon"></span>
-                        <span class="PMT-text"></span>
-                    </span>
-                    <span
-                        class="PMT-inline"
-                        data-filter="pending"
-                    >
-                        <span class="PMT-status-icon"></span>
-                        <span class="PMT-text"></span>
-                    </span>
-                    <span
-                        class="PMT-inline"
-                        data-filter="inprogress"
-                    >
-                        <span class="PMT-status-icon"></span>
-                        <span class="PMT-text"></span>
-                    </span>
-                    <span
-                        class="PMT-inline"
-                        data-filter="completed"
-                    >
-                        <span class="PMT-status-icon"></span>
-                        <span class="PMT-text"></span>
-                    </span>
-                </div>
-            </div>
+            <span class="PMT-inline" data-filter="pending">
+              <span class="PMT-status-icon"></span>
+              <span class="PMT-text"></span>
+            </span>
+            <span class="PMT-inline" data-filter="inprogress">
+              <span class="PMT-status-icon"></span>
+              <span class="PMT-text"></span>
+            </span>
+            <span class="PMT-inline" data-filter="completed">
+              <span class="PMT-status-icon"></span>
+              <span class="PMT-text"></span>
+            </span>
+          </div>
         </div>
+      </div>
 
-        <div class="PMT-close-btn" tabindex="0">
-            <span class="PMT-close-icon">✕</span>
-        </div>
+      <div class="PMT-close-btn" tabindex="0">
+        <span class="PMT-close-icon">✕</span>
+      </div>
     </header>
     <main>
-        <div class="PMT-space-between">
-            <h3>List of marked files</h3>
-            <span class="PMT-clear-all">Clear all</span>
-        </div>
+      <div class="PMT-space-between">
+        <h3>List of marked files</h3>
+        <span class="PMT-clear-all">Clear all</span>
+      </div>
 
-        <ul class="PMT-files"></ul>
+      <ul class="PMT-files"></ul>
     </main>
-</body>
-<script src="./utils.js"></script>
-<script src="./index.js"></script>
-<script src="./popup.js"></script>
+  </body>
+  <script src="./utils.js"></script>
+  <script src="./index.js"></script>
+  <script src="./popup.js"></script>
 </html>
