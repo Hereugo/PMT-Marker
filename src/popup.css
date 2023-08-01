@@ -1,0 +1,39 @@
+body {
+    min-width: 400px;
+    min-height: 200px;
+    overflow-y: auto;
+    font-size: 14px;
+}
+.PMT-files {
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0.5em;
+}
+
+.PMT-close-btn {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.25em;
+    width: 1em;
+    height: 1em;
+    color: #9CA3AF;
+    transition: color 100ms ease-out;
+}
+.PMT-close-btn:hover {
+    color: #1F2937;
+}
