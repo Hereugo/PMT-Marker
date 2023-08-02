@@ -1,56 +1,60 @@
+$.expr[':'].icontains = function(a, i, m) {
+  return $(a).text().toUpperCase()
+      .indexOf(m[3].toUpperCase()) >= 0;
+};
+
+function updateListFiles(filter, search) {
+  console.log(filter, search);
+  $('#files li').removeClass('hidden');
+  if (filter !== 'all') $(`#files li:not(:has(.PMT-checkbox[data-status="${filter}"]))`).addClass('hidden');
+  $(`#files li:not(:has(a:icontains(${search})))`).addClass('hidden');
+}
+
 function filterHandler(e) {
   const filter = this.dataset.filter;
 
-  for (const li of document.querySelectorAll(".PMT-checkbox")) {
-    li.parentElement.style.display = "none";
-  }
-
-  if (filter === "all") {
-    for (const li of document.querySelectorAll(".PMT-checkbox")) {
-      li.parentElement.style.display = "inline-flex";
-    }
-  } else {
-    for (const li of document.querySelectorAll(
-      `.PMT-checkbox[data-status="${filter}"`
-    )) {
-      li.parentElement.style.display = "inline-flex";
-    }
-  }
-
-  const title = document.querySelector(".PMT-dropdown-title");
-  title.dataset.filter = filter;
+  $('#PMT-filter-title').attr('data-filter', filter);
+  updateListFiles(filter, $('#PMT-search').attr('data-search'));
 }
 
-for (const elem of document.querySelector(".PMT-dropdown-content").children) {
-  elem.addEventListener("click", filterHandler, false);
+function searchHandler(e) {
+  const search = this.value;
+
+  $('#PMT-search').attr('data-search', search);
+  updateListFiles($('#PMT-filter-title').attr('data-filter'), search);
 }
-document
-  .querySelector(".PMT-close-btn")
-  .addEventListener("click", () => window.close(), false);
-document.querySelector(".PMT-clear-all").addEventListener(
-  "click",
-  () => {
-    Utils.setStorageData({ statuses: {} });
-    window.close();
-  },
-  false
-);
 
-const ul = document.querySelector(".PMT-files");
-Utils.getStorageData(["statuses"])
-  .then(({ statuses }) => {
-    if (statuses && Object.keys(statuses).length) {
-      for (const [fileId, data] of Object.entries(statuses)) {
-        const li = document.createElement("li");
-        li.appendChild(createCheckbox(fileId, data.filename));
-        li.appendChild(createLink(fileId, data.filename));
+function clearHandler(e) {
+  const fileId = this.dataset.fileId;
 
-        ul.appendChild(li);
+  Utils.getStorageData(["statuses"])
+    .then(({ statuses }) => {
+      delete statuses[fileId];
+      Utils.setStorageData({ statuses });
+    })
+    .catch(Utils.errorLog);
+
+  this.parentElement.remove();
+}
+
+$(document).ready(function() {
+  // Setup search bar functionalities
+  $('#PMT-search').on('input', searchHandler);
+
+  // Setup dropdown functionalities
+  $('#PMT-dropdown-content button').on('click', filterHandler);
+
+  Utils.getStorageData(["statuses"])
+    .then(({ statuses }) => {
+      let files = $('#files');
+      if (statuses && Object.keys(statuses).length) {
+        for (const [fileId, data] of Object.entries(statuses)) {
+          files.append(createFile(fileId, data.filename, data.status));
+        }
+
+        $('#files .PMT-checkbox').on('click', checkboxHandler);
+        $('#files .PMT-clear-btn').on('click', clearHandler);
       }
-    } else {
-      const li = document.createElement("li");
-      li.textContent = "No files found";
-      ul.appendChild(li);
-    }
-  })
-  .catch(Utils.errorLog);
+    })
+    .catch(Utils.errorLog);
+});

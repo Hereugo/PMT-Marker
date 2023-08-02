@@ -2,20 +2,15 @@
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-
   list-style-type: none;
 }
 
 .PMT-files > li {
   display: flex;
   align-items: center;
-
   gap: 0.5em;
 }
 
-.PMT-files > li:has(.PMT-checkbox[data-status="completed"]) a {
-  text-decoration: line-through;
-}
 .PMT-files > li:hover a {
   color: #555555;
 }
@@ -38,11 +33,16 @@
 
 .PMT-checkbox:hover {
   filter: brightness(0.9);
+  cursor: pointer;
 }
 
 .PMT-checkbox[data-status="completed"] {
   background-color: #22c55d;
   border: 2px solid #1dab51;
+}
+
+.PMT-checkbox[data-status="completed"] + a {
+  text-decoration: line-through;
 }
 
 .PMT-checkbox[data-status="inprogress"] {
@@ -55,153 +55,3 @@
   border: 2px solid #dedede;
 }
 
-.PMT-dropdown {
-  position: relative;
-  display: inline-flex;
-  border: 1px solid #dedede;
-  border-radius: 0.375em;
-
-  box-sizing: content-box;
-}
-
-.PMT-inline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-
-  padding: 0.25em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-}
-
-.PMT-space-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.PMT-status-icon {
-  width: 0.7em;
-  height: 0.7em;
-  border-radius: 50%;
-}
-
-*[data-filter="all"] > .PMT-status-icon {
-  background-color: #000000;
-  border: 2px solid #332e33;
-}
-
-*[data-filter="pending"] > .PMT-status-icon {
-  background-color: #f8f8f8;
-  border: 2px solid #dedede;
-}
-
-*[data-filter="inprogress"] > .PMT-status-icon {
-  background-color: #ebb305;
-  border: 2px solid #d19e04;
-}
-
-*[data-filter="completed"] > .PMT-status-icon {
-  background-color: #22c55d;
-  border: 2px solid #1dab51;
-}
-
-*[data-filter="all"] > .PMT-text:before {
-  content: "All";
-}
-
-*[data-filter="pending"] > .PMT-text:before {
-  content: "Pending";
-}
-
-*[data-filter="inprogress"] > .PMT-text:before {
-  content: "In Progress";
-}
-
-*[data-filter="completed"] > .PMT-text:before {
-  content: "Completed";
-}
-
-.PMT-text {
-  font-family: "Roboto", sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  letter-spacing: 0.04em;
-}
-
-.PMT-dropbtn {
-  cursor: pointer;
-
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-
-  background-color: #f3f4f6;
-
-  border-radius: 0;
-  border-top-right-radius: 0.375em;
-  border-bottom-right-radius: 0.375em;
-
-  padding: 0.25em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-
-  position: relative;
-  transition: background-color 100ms ease-out;
-}
-.PMT-dropbtn:hover {
-  background-color: #e5e7eb;
-}
-
-.PMT-dropbtn:focus-within > .PMT-dropdown-content {
-  visibility: visible;
-  opacity: 1;
-}
-
-.PMT-chevron-icon {
-  width: 1em;
-  height: 1.5em;
-  font-style: bold;
-  display: inline-block;
-  text-align: center;
-}
-
-.PMT-dropdown-content {
-  visibility: hidden;
-  opacity: 0;
-
-  position: absolute;
-  top: 36px;
-  right: 0;
-
-  background-color: #f3f4f6;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-  border-radius: 0.375em;
-
-  z-index: 1;
-
-  display: flex;
-  flex-direction: column;
-  min-width: 10em;
-}
-
-.PMT-dropdown-content > * {
-  padding: 0.5em;
-
-  cursor: pointer;
-  border-top: 1px solid #dedede;
-
-  transition: background-color 100ms ease-out;
-}
-.PMT-dropdown-content > *:hover {
-  background-color: #e5e7eb;
-}
-
-.PMT-clear-all {
-  color: #d93d2e;
-  cursor: pointer;
-}
-.PMT-clear-all:hover {
-  filter: brightness(0.9);
-  text-decoration: underline;
-}

@@ -11,17 +11,16 @@
     })
     .catch(Utils.errorLog);
 
-  document.addEventListener("DOMContentLoaded", (event) => {
+  
+    $(document).ready(function() {
     // Access the DOM where file hrefs are locatted
-    document.querySelectorAll(".files").forEach((ul) => {
-      ul.classList += " PMT-files";
+    $('.files').addClass('PMT-files').each((i, ul) => {
+      $(ul).children().each((i, li) => {
+        let fileId = $(li).find('a').attr('href');
+        let filename = $(li).find('a').text();
 
-      for (const li of ul.children) {
-        let fileId = li.querySelector("a").href;
-        let filename = li.querySelector("a").innerText;
-
-        li.prepend(createCheckbox(fileId, filename));
-      }
+        $(li).prepend(createCheckbox(fileId, filename));
+      });
     });
   });
 })();

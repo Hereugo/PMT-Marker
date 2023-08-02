@@ -23,56 +23,76 @@ function checkboxHandler(event) {
     : "pending";
   target.dataset.status = status;
 
+
   updateStorage(target.dataset.fileId, target.dataset.filename, status);
 }
 
-function createLink(fileId, filename) {
-  let link = document.createElement("a");
-  link.href = fileId;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.dataset.fileId = fileId;
-  link.className = "PMT-link";
-  let span = document.createElement("span");
-  span.textContent = filename;
-  span.className = "PMT-filename";
-  link.appendChild(span);
-
-  return link;
+function createFile(fileId, filename, status=undefined) {
+  return $(`
+  <li class="flex items-center gap-2">
+    ${createCheckbox(fileId, filename, status).prop('outerHTML')}
+    <a
+      href="${fileId}"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-file-id="${fileId}"
+    >
+      <span class="text-blue-600 hover:text-gray-800">${filename}</span>
+    </a>
+    <button
+      class="PMT-clear-btn inline-flex cursor-pointer rounded-md items-center border border-gray-300 bg-gray-100 p-1 px-2 ml-auto text-sm text-black hover:bg-gray-200"
+      data-file-id="${fileId}"
+      aria-label="Clear file"
+    >
+      <span class="inline-flex items-center justify-center h-3 w-3 text-gray-600">✕</span>
+    </button>
+  `);
 }
 
-function createCheckbox(fileId, filename) {
-  let checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.dataset.fileId = fileId;
-  checkbox.dataset.filename = filename;
-  checkbox.className = "PMT-checkbox";
-  checkbox.addEventListener("click", checkboxHandler, false);
+function createCheckbox(fileId, filename, status=undefined) {
+  const checkbox = $(`
+    <input
+      type="checkbox"
+      data-file-id="${fileId}"
+      data-filename="${filename}"
+      ${status ? `data-status="${status}"`: 'data-status="all"'}
+      class="PMT-checkbox"
+    />
+  `);
 
-  Utils.getStorageData(["statuses"]).then(({ statuses }) => {
-    try {
-      checkbox.dataset.status = statuses[fileId].status;
-    } catch (error) {
-      checkbox.dataset.status = "pending";
-    }
-    switch (statuses[fileId]) {
-      case "completed":
-        checkbox.readOnly = false;
-        checkbox.checked = true;
-        checkbox.indeterminate = false;
-        break;
-      case "inprogress":
-        checkbox.readOnly = true;
-        checkbox.checked = false;
-        checkbox.indeterminate = true;
-        break;
-      default:
-        checkbox.readOnly = false;
-        checkbox.checked = false;
-        checkbox.indeterminate = false;
-        break;
-    }
-  });
+  updateCheckbox(checkbox, fileId, status);
+  checkbox.on('click', checkboxHandler);
 
   return checkbox;
 }
+
+function updateCheckbox(checkbox, fileId, status=undefined) {
+  if (!status) {
+    Utils.getStorageData(["statuses"]).then(({ statuses }) => {
+      try {
+        checkbox.attr('data-status', statuses[fileId].status);
+      } catch (error) {
+        checkbox.attr('data-status', 'pending');
+      }
+    });
+  }
+
+  switch (checkbox.attr('data-status')) {
+    case "completed":
+      checkbox.attr('readOnly', false);
+      checkbox.attr('checked', true);
+      checkbox.attr('indeterminate', false);
+      break;
+    case "inprogress":
+      checkbox.attr('readOnly', true);
+      checkbox.attr('checked', false);
+      checkbox.attr('indeterminate', true);
+      break;
+    default:
+      checkbox.attr('readOnly', false);
+      checkbox.attr('checked', false);
+      checkbox.attr('indeterminate', false);
+      break;
+  }
+}
+

@@ -1,39 +1,49 @@
 body {
-  min-width: 400px;
+  min-width: 500px;
   min-height: 200px;
   overflow-y: auto;
-  font-size: 14px;
-}
-.PMT-files {
-  padding: 0;
-  margin: 0;
-  max-height: 200px;
-  overflow-y: auto;
-}
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 0.5em;
 }
 
-.PMT-close-btn {
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  font-size: 1.25em;
-  width: 1em;
-  height: 1em;
-  color: #9ca3af;
-  transition: color 100ms ease-out;
+*[data-filter="all"] *[data-type="PMT-status"] {
+  background-color: #000000;
+  border: 2px solid #332e33;
 }
-.PMT-close-btn:hover {
-  color: #1f2937;
+
+*[data-filter="pending"] *[data-type="PMT-status"] {
+  background-color: #f8f8f8;
+  border: 2px solid #dedede;
+}
+
+*[data-filter="inprogress"] *[data-type="PMT-status"] {
+  background-color: #ebb305;
+  border: 2px solid #d19e04;
+}
+
+*[data-filter="completed"] *[data-type="PMT-status"] {
+  background-color: #22c55d;
+  border: 2px solid #1dab51;
+}
+
+*[data-filter="all"] *[data-type="PMT-text"]:before {
+  content: "All";
+}
+
+*[data-filter="pending"] *[data-type="PMT-text"]:before {
+  content: "Pending";
+}
+
+*[data-filter="inprogress"] *[data-type="PMT-text"]:before {
+  content: "In Progress";
+}
+
+*[data-filter="completed"] *[data-type="PMT-text"]:before {
+  content: "Completed";
+}
+
+#PMT-dropdown-btn:focus-within #PMT-dropdown-content {
+  visibility: visible;
+}
+
+#files li:only-child {
+  display: flex;
 }

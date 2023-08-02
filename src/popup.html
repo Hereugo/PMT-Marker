@@ -4,53 +4,68 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Physics & Maths Tutor Marker</title>
+    <link rel="stylesheet" href="./1.9.6_dist_tailwind.min.css" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./popup.css" />
   </head>
-  <body>
-    <header>
-      <div class="PMT-dropdown">
-        <span class="PMT-dropdown-title PMT-inline" data-filter="all">
-          <span class="PMT-status-icon"></span>
-          <span class="PMT-text"></span>
-        </span>
-        <div class="PMT-dropbtn" tabindex="0">
-          <span class="PMT-text">Change Filter</span>
-          <i class="PMT-chevron-icon">⌵</i>
-          <div class="PMT-dropdown-content">
-            <span class="PMT-inline" data-filter="all">
-              <span class="PMT-status-icon"></span>
-              <span class="PMT-text"></span>
-            </span>
-            <span class="PMT-inline" data-filter="pending">
-              <span class="PMT-status-icon"></span>
-              <span class="PMT-text"></span>
-            </span>
-            <span class="PMT-inline" data-filter="inprogress">
-              <span class="PMT-status-icon"></span>
-              <span class="PMT-text"></span>
-            </span>
-            <span class="PMT-inline" data-filter="completed">
-              <span class="PMT-status-icon"></span>
-              <span class="PMT-text"></span>
-            </span>
-          </div>
+  <body class="p-2">
+    <header class="flex justify-between">
+      <!-- Create a search bar -->
+      <div class="relative inline-flex rounded-md border border-gray-300">
+        <input id="PMT-search" class="inline-flex cursor-input items-center  p-1 px-2 text-sm text-black" type="text" placeholder="Search" data-search=""/>
+        <div id="PMT-search-btn" class="inline-flex cursor-pointer rounded-br-md rounded-tr-md border-l border-l-gray-300 bg-gray-100 p-1 px-2 text-sm text-black hover:bg-gray-200" tabindex="0">
+          <span class="inline-flex items-center justify-center h-4 w-4 text-3xl text-gray-600">⌕</span>
         </div>
       </div>
 
-      <div class="PMT-close-btn" tabindex="0">
-        <span class="PMT-close-icon">✕</span>
+      <div class="relative inline-flex rounded-md border border-gray-300">
+        <span id="PMT-filter-title" class="inline-flex cursor-default items-center  p-1 px-2 text-sm text-black" data-filter="all">
+          <span class="flex h-3 w-3">
+            <span class="relative inline-flex h-3 w-3 rounded-full" data-type="PMT-status"></span>
+          </span>
+          <span class="ml-2 capitalize" data-type="PMT-text"></span>
+        </span>
+        <div id="PMT-dropdown-btn" class="inline-flex cursor-pointer rounded-br-md rounded-tr-md border-l border-l-gray-300 bg-gray-100 p-1 px-2 text-sm text-black hover:bg-gray-200" tabindex="0">
+          <span class="mr-2">Filter by</span>
+          <span class="inline-flex items-center justify-center h-4 w-4 text-lg text-gray-600">⌵</span>
+
+          <div id="PMT-dropdown-content" class="absolute right-0 top-0 mt-8 flex flex-col divide-y rounded-md border border-gray-200 bg-white shadow-md [&>button:first-child]:rounded-t-md [&>button:last-child]:rounded-b-md invisible">
+            <button class="inline-flex px-3 py-1 text-left items-center text-sm text-gray-800 hover:bg-gray-100 outline-none" data-filter="all">
+              <span class="flex h-3 w-3">
+                <span class="relative inline-flex h-3 w-3 rounded-full" data-type="PMT-status"></span>
+              </span>
+              <span class="ml-2 capitalize" data-type="PMT-text"></span>
+            </button>
+            <button class="inline-flex px-3 py-1 text-left items-center text-sm text-gray-800 hover:bg-gray-100 outline-none" data-filter="pending">
+              <span class="flex h-3 w-3">
+                <span class="relative inline-flex h-3 w-3 rounded-full" data-type="PMT-status"></span>
+              </span>
+              <span class="ml-2 capitalize" data-type="PMT-text"></span>
+            </button>
+            <button class="inline-flex px-3 py-1 text-left items-center text-sm text-gray-800 hover:bg-gray-100 outline-none" data-filter="inprogress">
+              <span class="flex h-3 w-3">
+                <span class="relative inline-flex h-3 w-3 rounded-full" data-type="PMT-status"></span>
+              </span>
+              <span class="ml-2 capitalize" data-type="PMT-text"></span>
+            </span>
+            <button class="inline-flex px-3 py-1 text-left items-center text-sm text-gray-800 hover:bg-gray-100 outline-none" data-filter="completed">
+              <span class="flex h-3 w-3">
+                <span class="relative inline-flex h-3 w-3 rounded-full" data-type="PMT-status"></span>
+              </span>
+              <span class="ml-2 capitalize" data-type="PMT-text"></span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
-    <main>
-      <div class="PMT-space-between">
-        <h3>List of marked files</h3>
-        <span class="PMT-clear-all">Clear all</span>
-      </div>
-
-      <ul class="PMT-files"></ul>
+    <hr class="my-2 border-gray-300" />
+    <main class="px-0">
+      <ul id="files">
+        <li class="flex justify-center text-sm text-gray-600 hidden">No files found</li>
+      </ul>
     </main>
   </body>
+  <script src="./jquery-3.6.0.min.js"></script>
   <script src="./utils.js"></script>
   <script src="./index.js"></script>
   <script src="./popup.js"></script>
